@@ -1,0 +1,32 @@
+name: Bug report / Hata bildirimi
+description: Report a reproducible problem with the supported device.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "Please omit Bluetooth addresses, serial numbers and unreviewed logs. Security problems belong in private Security Advisories."
+  - type: input
+    id: version
+    attributes:
+      label: App version, macOS version and Mac architecture
+      placeholder: "1.2.0, macOS 26.3, Apple Silicon"
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Earbud model and firmware version
+      placeholder: "FreeBuds SE 4 ANC / BTFT0026, 1.9.0.199"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps, expected behavior and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Additional evidence (optional, redact identifiers)

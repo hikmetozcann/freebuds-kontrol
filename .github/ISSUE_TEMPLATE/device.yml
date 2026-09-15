@@ -1,0 +1,22 @@
+name: Device support / Cihaz desteği
+description: Discuss a device or firmware that has not been validated.
+title: "[Device]: "
+labels: [enhancement]
+body:
+  - type: input
+    id: model
+    attributes:
+      label: Exact model and firmware (not the serial number)
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: What is known about its protocol and available controls?
+      description: Link public documentation or upstream support. Do not send speculative write commands to a device.
+    validations:
+      required: true
+  - type: textarea
+    id: help
+    attributes:
+      label: What would you be able to help test?

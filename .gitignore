@@ -1,0 +1,15 @@
+.DS_Store
+.AppleDouble/
+.build/
+build/
+dist/
+*.app/
+*.dSYM/
+*.zip
+*.xcuserstate
+xcuserdata/
+.env
+.env.*
+*.log
+*baseline*.json
+*snapshot*.json
