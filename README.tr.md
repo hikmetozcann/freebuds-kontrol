@@ -15,7 +15,7 @@ Menü çubuğundan sol/sağ/kutu pilini okuyun; ANC, farkındalık, ekolayzır, 
 - **HUAWEI FreeBuds SE 4 ANC / BTFT0026** için geliştirilmiştir.
 - Gerçek kulaklık doğrulaması: **1.9.0.199** firmware, **macOS 26.3**, Apple Silicon.
 - macOS **14+** hedeflenir; Apple Silicon ve Intel paketleri CI üzerinde derlenip kontrol edilir. Her Mac/firmware birleşimi donanımla denenmiş değildir.
-- Arayüz Türkçedir. macOS 26’da cam sekmeler, eski sürümlerde standart malzeme kullanılır.
+- Arayüz Türkçe, İngilizce ve Almancadır; macOS dil ayarını izler. macOS 26’da cam sekmeler, eski sürümlerde standart malzeme kullanılır.
 
 **Çift cihaz bağlantısı, aynı anda iPhone/Mac sesi, otomatik cihazlar arası geçiş veya firmware müdahalesi sağlamaz.** Kutu pil yüzdesi kulaklığın en son bildiği değer olabilir. Düşük gecikme ayarı gerçek ses gecikmesinin milisaniye cinsinden ölçümü değildir.
 

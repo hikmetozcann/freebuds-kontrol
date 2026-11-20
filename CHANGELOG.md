@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Interface localization: English, German and Turkish, following the macOS language setting (English is the fallback for other languages).
+
 ## 1.2.0 — 2026-09-15
 
 First public open-source release.

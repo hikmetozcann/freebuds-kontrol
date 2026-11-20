@@ -32,6 +32,7 @@ jobs:
         run: |
           for script in build.sh Tools/*.sh; do zsh -n "$script"; done
           python3 Tools/check-source.py
+          python3 Tools/translations.py --check
       - name: Build native app
         run: ./build.sh
       - name: Run protocol checks (no Bluetooth hardware)

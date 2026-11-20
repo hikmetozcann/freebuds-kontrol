@@ -19,7 +19,7 @@ final class HeadsetModel: ObservableObject {
         link.onPacket = { [weak self] packet in self?.receive(packet) }
         link.onDisconnect = { [weak self] in
             self?.ready = false; self?.packets = [:]
-            self?.message = "Kulaklık Mac’e bağlı değil. Bağlanıp devam edebilirsiniz."
+            self?.message = L("Kulaklık Mac’e bağlı değil. Bağlanıp devam edebilirsiniz.")
             self?.onStatusChange?()
         }
     }
@@ -58,7 +58,7 @@ final class HeadsetModel: ObservableObject {
                 }
             }
             updatedAt = Date()
-            if !quiet || !wasReady { message = "Ayarlar kulaklıktan okundu."; isError = false }
+            if !quiet || !wasReady { message = L("Ayarlar kulaklıktan okundu."); isError = false }
         } catch {
             ready = false; packets = [:]
             if !quiet || message == nil { message = error.localizedDescription; isError = true }
@@ -92,17 +92,17 @@ final class HeadsetModel: ObservableObject {
         var result = available.isEmpty ? known : known.filter { available.contains($0.id) }
         let current = feature == .eq ? eq : value(feature, side)
         if let current, !result.contains(where: { $0.id == current }) {
-            result.append(Option(id: current, title: known.first(where: { $0.id == current })?.title ?? "Cihaz ayarı (\(current))"))
+            result.append(Option(id: current, title: known.first(where: { $0.id == current })?.title ?? L("Cihaz ayarı (%ld)", current)))
         }
         return result
     }
     @MainActor private func perform(_ operation: () async throws -> Packet) async {
         guard !busy, ready, link.isOpen else { return }
-        busy = true; message = "Kulaklıkta uygulanıyor…"; isError = false
+        busy = true; message = L("Kulaklıkta uygulanıyor…"); isError = false
         defer { busy = false; onStatusChange?() }
         do {
             receive(try await operation())
-            updatedAt = Date(); message = "Kulaklıkta uygulandı ve doğrulandı."
+            updatedAt = Date(); message = L("Kulaklıkta uygulandı ve doğrulandı.")
         } catch {
             message = error.localizedDescription; isError = true
             if !link.isOpen { ready = false; packets = [:] }

@@ -15,7 +15,7 @@ struct MainView: View {
     #endif
     @AppStorage("appearance") private var appearance = "system"
     @Namespace private var navigation
-    private let tabs = [("Ses", "waveform"), ("Dokunmalar", "hand.tap"), ("Cihaz", "info.circle")]
+    private let tabs = [(L("Ses"), "waveform"), (L("Dokunmalar"), "hand.tap"), (L("Cihaz"), "info.circle")]
     private var animation: Animation? { reduceMotion ? nil : .easeInOut(duration: 0.2) }
     var body: some View {
         VStack(spacing: 0) {
@@ -53,18 +53,18 @@ struct MainView: View {
             Text("FreeBuds Kontrol").font(.system(size: 11, weight: .medium)).foregroundStyle(.secondary).padding(.leading, 26)
             Spacer()
             Menu {
-                Picker("Görünüm", selection: $appearance) {
-                    Text("Sistem").tag("system")
-                    Text("Açık").tag("light")
-                    Text("Koyu").tag("dark")
+                Picker(L("Görünüm"), selection: $appearance) {
+                    Text(L("Sistem")).tag("system")
+                    Text(L("Açık")).tag("light")
+                    Text(L("Koyu")).tag("dark")
                 }
-                Button("Bluetooth ayarlarını aç", action: openBluetoothSettings)
+                Button(L("Bluetooth ayarlarını aç"), action: openBluetoothSettings)
                 Divider()
-                Button("Çıkış") { NSApp.terminate(nil) }.keyboardShortcut("q")
+                Button(L("Çıkış")) { NSApp.terminate(nil) }.keyboardShortcut("q")
             } label: {
                 Image(systemName: "ellipsis").font(.system(size: 16, weight: .medium)).frame(width: 28, height: 24)
             }.menuStyle(.borderlessButton).menuIndicator(.hidden).fixedSize()
-                .help("Uygulama seçenekleri").accessibilityLabel("Uygulama seçenekleri")
+                .help(L("Uygulama seçenekleri")).accessibilityLabel(L("Uygulama seçenekleri"))
         }.padding(.horizontal, 20).frame(height: 36)
     }
     private var header: some View {
@@ -74,7 +74,7 @@ struct MainView: View {
                 Text("SE 4 ANC").font(.system(size: 16)).foregroundStyle(.secondary)
                 HStack(spacing: 6) {
                     Circle().fill(model.ready ? Theme.battery : Color.secondary).frame(width: 5, height: 5)
-                    Text(model.ready ? "Mac’e bağlı" : (model.busy ? "Bağlanıyor" : "Bağlantı yok"))
+                    Text(model.ready ? L("Mac’e bağlı") : (model.busy ? L("Bağlanıyor") : L("Bağlantı yok")))
                         .font(.system(size: 11, weight: .medium))
                 }.padding(.horizontal, 10).padding(.vertical, 6)
                     .background(Color.primary.opacity(0.045), in: Capsule()).padding(.top, 7)
@@ -85,9 +85,9 @@ struct MainView: View {
     }
     private var batteries: some View {
         HStack(spacing: 6) {
-            BatteryGauge(label: "Sol kulaklık", icon: "earbud.left", level: model.leftBattery, charging: model.charging(0))
-            BatteryGauge(label: "Sağ kulaklık", icon: "earbud.right", level: model.rightBattery, charging: model.charging(1))
-            BatteryGauge(label: "Şarj kutusu", icon: "earbuds.case", level: model.caseBattery, charging: model.charging(2))
+            BatteryGauge(label: L("Sol kulaklık"), icon: "earbud.left", level: model.leftBattery, charging: model.charging(0))
+            BatteryGauge(label: L("Sağ kulaklık"), icon: "earbud.right", level: model.rightBattery, charging: model.charging(1))
+            BatteryGauge(label: L("Şarj kutusu"), icon: "earbuds.case", level: model.caseBattery, charging: model.charging(2))
         }.frame(height: 52)
     }
     private var tabBar: some View {
@@ -111,7 +111,7 @@ struct MainView: View {
                 }.buttonStyle(QuietPressStyle())
                 .accessibilityLabel(tabs[index].0)
                 .accessibilityAddTraits(model.tab == index ? .isSelected : [])
-                .accessibilityValue(model.tab == index ? "Seçili" : "Seçili değil")
+                .accessibilityValue(model.tab == index ? L("Seçili") : L("Seçili değil"))
             }
         }.padding(4).background(NativeGlass(radius: 23).id(scheme).allowsHitTesting(false))
     }
@@ -119,15 +119,15 @@ struct MainView: View {
         VStack(spacing: 16) {
             Surface {
                 VStack(alignment: .leading, spacing: 15) {
-                    sectionHeader("Gürültü kontrolü", icon: "waveform.badge.minus")
+                    sectionHeader(L("Gürültü kontrolü"), icon: "waveform.badge.minus")
                     HStack(spacing: 9) {
-                        modeButton(0, "Kapalı", "speaker.wave.2")
-                        modeButton(1, "Engelleme", "waveform.badge.minus")
-                        modeButton(2, "Farkındalık", "ear.badge.waveform")
+                        modeButton(0, L("Kapalı"), "speaker.wave.2")
+                        modeButton(1, L("Engelleme"), "waveform.badge.minus")
+                        modeButton(2, L("Farkındalık"), "ear.badge.waveform")
                     }
                     if model.ancMode == 1 {
                         HStack {
-                            Text("Seviye").font(.system(size: 12)).foregroundStyle(.secondary)
+                            Text(L("Seviye")).font(.system(size: 12)).foregroundStyle(.secondary)
                             Spacer()
                             intensityControl.frame(width: 285)
                         }
@@ -140,23 +140,23 @@ struct MainView: View {
                     HStack(spacing: 12) {
                         settingIcon("slider.horizontal.3")
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("Ses profili").fontWeight(.medium)
+                            Text(L("Ses profili")).fontWeight(.medium)
                             Text(eqDescription).font(.system(size: 11)).foregroundStyle(.secondary)
                         }
                         Spacer(minLength: 12)
-                        ChoiceMenu(title: "Ses profili", value: model.eq, options: model.options(.eq), select: model.setEQ)
+                        ChoiceMenu(title: L("Ses profili"), value: model.eq, options: model.options(.eq), select: model.setEQ)
                             .frame(width: 134).disabled(!canEdit(.eq))
                     }.frame(minHeight: 40)
                     Divider().opacity(0.6)
                     HStack(spacing: 12) {
                         settingIcon("bolt")
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("Düşük gecikme").fontWeight(.medium)
-                            Text("Kulaklığın gecikme tercihi.").font(.system(size: 11)).foregroundStyle(.secondary)
+                            Text(L("Düşük gecikme")).fontWeight(.medium)
+                            Text(L("Kulaklığın gecikme tercihi.")).font(.system(size: 11)).foregroundStyle(.secondary)
                         }
                         Spacer()
                         if model.latency != nil {
-                            Toggle("Düşük gecikme", isOn: Binding(get: { model.latency ?? false }, set: { model.setLatency($0) }))
+                            Toggle(L("Düşük gecikme"), isOn: Binding(get: { model.latency ?? false }, set: { model.setLatency($0) }))
                                 .labelsHidden().toggleStyle(.switch).controlSize(.small).disabled(!canEdit(.latency))
                         } else { Text("—").foregroundStyle(.secondary) }
                     }.frame(minHeight: 38)
@@ -179,12 +179,12 @@ struct MainView: View {
                     }
                 }.contentShape(RoundedRectangle(cornerRadius: 15))
         }.buttonStyle(QuietPressStyle()).disabled(!canEdit(.anc))
-        .accessibilityLabel(title).accessibilityValue(selected ? "Seçili" : "Seçili değil")
+        .accessibilityLabel(title).accessibilityValue(selected ? L("Seçili") : L("Seçili değil"))
     }
     private var intensityOptions: [Option] {
-        var items = [Option(id: 1, title: "Hafif"), Option(id: 0, title: "Dengeli"), Option(id: 2, title: "Güçlü")]
+        var items = [Option(id: 1, title: L("Hafif")), Option(id: 0, title: L("Dengeli")), Option(id: 2, title: L("Güçlü"))]
         if let level = model.ancLevel, !items.contains(where: { $0.id == level }) {
-            items.append(Option(id: level, title: level == 3 ? "Otomatik" : "Cihaz ayarı"))
+            items.append(Option(id: level, title: level == 3 ? L("Otomatik") : L("Cihaz ayarı")))
         }
         return items
     }
@@ -202,38 +202,38 @@ struct MainView: View {
                             }
                         }.contentShape(Capsule())
                 }.buttonStyle(QuietPressStyle()).disabled(!canEdit(.anc) || !(0...3).contains(option.id))
-                    .accessibilityLabel("Engelleme seviyesi: \(option.title)")
-                    .accessibilityValue(model.ancLevel == option.id ? "Seçili" : "Seçili değil")
+                    .accessibilityLabel(L("Engelleme seviyesi: %@", option.title))
+                    .accessibilityValue(model.ancLevel == option.id ? L("Seçili") : L("Seçili değil"))
             }
         }.padding(3).background(Color.primary.opacity(0.045), in: Capsule())
     }
     private var eqDescription: String {
         switch model.eq {
-        case 1: return "Doğal ve dengeli."
-        case 2: return "Bas frekansları öne çıkar."
-        case 3: return "Tiz frekansları öne çıkar."
-        case 9: return "Konuşma ve vokaller öne çıkar."
-        default: return "Kulaklıktan okunamadı."
+        case 1: return L("Doğal ve dengeli.")
+        case 2: return L("Bas frekansları öne çıkar.")
+        case 3: return L("Tiz frekansları öne çıkar.")
+        case 9: return L("Konuşma ve vokaller öne çıkar.")
+        default: return L("Kulaklıktan okunamadı.")
         }
     }
     private var gestures: some View {
         VStack(spacing: 16) {
             Surface {
                 VStack(alignment: .leading, spacing: 17) {
-                    gestureGroup("İki kez dokun", .doubleTap, icon: "hand.tap")
+                    gestureGroup(L("İki kez dokun"), .doubleTap, icon: "hand.tap")
                     Divider().opacity(0.6)
-                    gestureGroup("Üç kez dokun", .tripleTap, icon: "hand.tap")
+                    gestureGroup(L("Üç kez dokun"), .tripleTap, icon: "hand.tap")
                     Divider().opacity(0.6)
-                    gestureGroup("Basılı tut", .longTap, icon: "hand.point.up.left")
+                    gestureGroup(L("Basılı tut"), .longTap, icon: "hand.point.up.left")
                 }
             }
             if model.value(.longTap, 1) == 10 || model.value(.longTap, 2) == 10 {
                 Surface {
                     VStack(alignment: .leading, spacing: 13) {
-                        sectionHeader("Gürültü modu geçişi", icon: "arrow.triangle.2.circlepath")
-                        Text("Basılı tutunca geçiş yapılacak modlar.").font(.system(size: 11)).foregroundStyle(.secondary)
-                        if model.value(.longTap, 1) == 10 { cycleRow("Sol", 1) }
-                        if model.value(.longTap, 2) == 10 { cycleRow("Sağ", 2) }
+                        sectionHeader(L("Gürültü modu geçişi"), icon: "arrow.triangle.2.circlepath")
+                        Text(L("Basılı tutunca geçiş yapılacak modlar.")).font(.system(size: 11)).foregroundStyle(.secondary)
+                        if model.value(.longTap, 1) == 10 { cycleRow(L("Sol"), 1) }
+                        if model.value(.longTap, 2) == 10 { cycleRow(L("Sağ"), 2) }
                     }
                 }
             }
@@ -242,11 +242,11 @@ struct MainView: View {
                     HStack(spacing: 12) {
                         settingIcon("phone")
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("Aramayı yanıtla / bitir").fontWeight(.medium)
-                            Text("İki kez dokunarak.").font(.system(size: 11)).foregroundStyle(.secondary)
+                            Text(L("Aramayı yanıtla / bitir")).fontWeight(.medium)
+                            Text(L("İki kez dokunarak.")).font(.system(size: 11)).foregroundStyle(.secondary)
                         }
                         Spacer()
-                        Toggle("İki dokunuşla aramayı yanıtla / bitir", isOn: Binding(get: { model.value(.doubleTap, 4) == 0 }, set: { model.setGesture(.doubleTap, side: 4, value: $0 ? 0 : 255) }))
+                        Toggle(L("İki dokunuşla aramayı yanıtla / bitir"), isOn: Binding(get: { model.value(.doubleTap, 4) == 0 }, set: { model.setGesture(.doubleTap, side: 4, value: $0 ? 0 : 255) }))
                             .labelsHidden().toggleStyle(.switch).controlSize(.small).disabled(!canEdit(.doubleTap))
                     }
                 }
@@ -257,8 +257,8 @@ struct MainView: View {
         VStack(alignment: .leading, spacing: 11) {
             sectionHeader(title, icon: icon)
             HStack(spacing: 20) {
-                gestureCell("Sol", feature, 1)
-                gestureCell("Sağ", feature, 2)
+                gestureCell(L("Sol"), feature, 1)
+                gestureCell(L("Sağ"), feature, 2)
             }
         }
     }
@@ -283,27 +283,27 @@ struct MainView: View {
             .disabled(!canEdit(feature) || model.value(feature, side) == nil)
     }
     private func gestureName(_ feature: Feature) -> String {
-        switch feature { case .doubleTap: return "iki dokunma"; case .tripleTap: return "üç dokunma"; case .longTap: return "basılı tutma"; default: return "gürültü geçişi" }
+        switch feature { case .doubleTap: return L("iki dokunma"); case .tripleTap: return L("üç dokunma"); case .longTap: return L("basılı tutma"); default: return L("gürültü geçişi") }
     }
     private var device: some View {
         VStack(spacing: 16) {
             Surface {
                 VStack(alignment: .leading, spacing: 16) {
-                    sectionHeader("Kulaklık bilgileri", icon: "earbuds")
-                    infoRow("Model", "FreeBuds SE 4 ANC")
+                    sectionHeader(L("Kulaklık bilgileri"), icon: "earbuds")
+                    infoRow(L("Model"), "FreeBuds SE 4 ANC")
                     Divider().opacity(0.6)
-                    infoRow("Yazılım sürümü", model.firmware)
-                    infoRow("Donanım sürümü", model.hardware)
-                    infoRow("Model kodu", model.modelCode)
+                    infoRow(L("Yazılım sürümü"), model.firmware)
+                    infoRow(L("Donanım sürümü"), model.hardware)
+                    infoRow(L("Model kodu"), model.modelCode)
                 }
             }
             Surface {
                 VStack(alignment: .leading, spacing: 12) {
-                    sectionHeader("Bağlantı", icon: "antenna.radiowaves.left.and.right")
-                    Text("Ayarları değiştirmek için kulaklığın Mac’e bağlı olması gerekir. Başka bir cihaza geçtiğinde panel bağlantıyı bekler.")
+                    sectionHeader(L("Bağlantı"), icon: "antenna.radiowaves.left.and.right")
+                    Text(L("Ayarları değiştirmek için kulaklığın Mac’e bağlı olması gerekir. Başka bir cihaza geçtiğinde panel bağlantıyı bekler."))
                         .font(.system(size: 12)).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
                     HStack {
-                        Button("Bluetooth ayarlarını aç", action: openBluetoothSettings).controlSize(.large)
+                        Button(L("Bluetooth ayarlarını aç"), action: openBluetoothSettings).controlSize(.large)
                         Spacer()
                         if !model.ready { connectButton }
                     }
@@ -311,11 +311,11 @@ struct MainView: View {
             }
             VStack(alignment: .leading, spacing: 5) {
                 Text("FreeBuds Kontrol \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Development")").font(.system(size: 11, weight: .medium))
-                Text("SE 4 ANC için bağımsız Mac uygulaması. Kulaklık güncellemeleri için HUAWEI Audio Connect’i kullanın.")
+                Text(L("SE 4 ANC için bağımsız Mac uygulaması. Kulaklık güncellemeleri için HUAWEI Audio Connect’i kullanın."))
                     .font(.system(size: 11)).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
                 HStack(spacing: 15) {
                     Link("OpenFreebuds", destination: URL(string: "https://github.com/melianmiko/OpenFreebuds")!)
-                    Link("Kaynak kodu · GPL-3.0", destination: URL(string: "https://github.com/hikmetozcann/freebuds-kontrol")!)
+                    Link(L("Kaynak kodu · GPL-3.0"), destination: URL(string: "https://github.com/hikmetozcann/freebuds-kontrol")!)
                 }.font(.system(size: 11)).padding(.top, 3)
             }.frame(maxWidth: .infinity, alignment: .leading).padding(.horizontal, 5)
         }
@@ -325,15 +325,15 @@ struct MainView: View {
             HStack(alignment: .top, spacing: 14) {
                 Image(systemName: "antenna.radiowaves.left.and.right.slash").font(.system(size: 25)).foregroundStyle(.secondary)
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(model.busy ? "Kulaklık aranıyor…" : "Kulaklığını Mac’e bağla").font(.system(size: 15, weight: .semibold))
-                    Text("Başka bir cihaza bağlıysa önce o bağlantıyı kesmeniz gerekebilir.").font(.system(size: 12)).foregroundStyle(.secondary)
-                    HStack { connectButton; Button("Bluetooth ayarları", action: openBluetoothSettings).buttonStyle(.link) }
+                    Text(model.busy ? L("Kulaklık aranıyor…") : L("Kulaklığını Mac’e bağla")).font(.system(size: 15, weight: .semibold))
+                    Text(L("Başka bir cihaza bağlıysa önce o bağlantıyı kesmeniz gerekebilir.")).font(.system(size: 12)).foregroundStyle(.secondary)
+                    HStack { connectButton; Button(L("Bluetooth ayarları"), action: openBluetoothSettings).buttonStyle(.link) }
                 }
             }
         }
     }
     private var connectButton: some View {
-        Button("Mac’e bağlan") { Task { @MainActor in await model.refresh(connect: true) } }
+        Button(L("Mac’e bağlan")) { Task { @MainActor in await model.refresh(connect: true) } }
             .controlSize(.large).disabled(model.busy)
     }
     private var footer: some View {
@@ -346,15 +346,15 @@ struct MainView: View {
                 }
             }.frame(width: 17, height: 17)
             VStack(alignment: .leading, spacing: 3) {
-                Text(model.busy ? "Kulaklıkla iletişim kuruluyor…" : (model.message ?? "Ayarlar kulaklıktan okunuyor."))
+                Text(model.busy ? L("Kulaklıkla iletişim kuruluyor…") : (model.message ?? L("Ayarlar kulaklıktan okunuyor.")))
                     .font(.system(size: 11)).foregroundStyle(model.isError ? Color.primary : Color.secondary)
                     .lineLimit(2).fixedSize(horizontal: false, vertical: true)
                 if let date = model.updatedAt, model.ready {
-                    Text("Son okuma \(date.formatted(date: .omitted, time: .shortened))")
+                    Text(L("Son okuma %@", date.formatted(date: .omitted, time: .shortened)))
                         .font(.system(size: 10)).foregroundStyle(.tertiary)
                 }
             }.frame(maxWidth: .infinity, alignment: .leading)
-            CircleAction(symbol: "arrow.clockwise", title: "Ayarları yenile") {
+            CircleAction(symbol: "arrow.clockwise", title: L("Ayarları yenile")) {
                 Task { @MainActor in await model.refresh() }
             }.disabled(model.busy)
         }.padding(.horizontal, 30).padding(.bottom, 12).padding(.top, 8).frame(minHeight: 56)
@@ -369,7 +369,7 @@ struct MainView: View {
         Image(systemName: symbol).font(.system(size: 18, weight: .regular)).foregroundStyle(.secondary)
             .frame(width: 34, height: 34).background(Color.primary.opacity(0.035), in: RoundedRectangle(cornerRadius: 10))
     }
-    private var unavailable: some View { Text("Bu ayar okunamadı. Yenileyip tekrar deneyin.").font(.system(size: 12)).foregroundStyle(.secondary) }
+    private var unavailable: some View { Text(L("Bu ayar okunamadı. Yenileyip tekrar deneyin.")).font(.system(size: 12)).foregroundStyle(.secondary) }
     private func infoRow(_ title: String, _ value: String) -> some View {
         HStack { Text(title).foregroundStyle(.secondary); Spacer(); Text(value).textSelection(.enabled) }.font(.system(size: 12))
     }

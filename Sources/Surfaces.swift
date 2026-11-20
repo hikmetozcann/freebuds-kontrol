@@ -187,7 +187,7 @@ struct BatteryGauge: View {
         }.frame(maxWidth: .infinity, alignment: .center)
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.3), value: level)
         .accessibilityElement(children: .ignore).accessibilityLabel(label)
-        .accessibilityValue(level.map { "%\($0)\(charging ? ", şarj oluyor" : "")" } ?? "Pil bilgisi yok")
+        .accessibilityValue(level.map { L("%%%ld", $0) + (charging ? L(", şarj oluyor") : "") } ?? L("Pil bilgisi yok"))
     }
 }
 
@@ -197,7 +197,7 @@ struct ChoiceMenu: View {
     let options: [Option]
     let select: (Int) -> Void
     @State private var hovered = false
-    private var selectedTitle: String { options.first(where: { $0.id == value })?.title ?? "Okunamadı" }
+    private var selectedTitle: String { options.first(where: { $0.id == value })?.title ?? L("Okunamadı") }
     var body: some View {
         Menu {
             ForEach(options) { option in

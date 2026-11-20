@@ -26,6 +26,10 @@ Close the GUI and other earbud managers first. Pair/connect the supported headse
 
 This builds an offscreen renderer using the same SwiftUI views and original artwork. It uses fixed example battery/settings data and the reduced-transparency appearance, since native glass requires onscreen window compositing. It does not open a Bluetooth link, order a window onscreen or capture the user's desktop. Inspect both PNGs before committing them.
 
+## Localization
+
+All user-visible text goes through `L("…")` (`Sources/Localization.swift`). Keys are the Turkish source strings. Add the key with its English and German text to the table in `Tools/translations.py`, then run `python3 Tools/translations.py` to regenerate `Resources/{en,de,tr}.lproj/Localizable.strings`. Use `%@`/`%ld` for values. CI runs `--check`, which fails on missing translations or mismatched format specifiers. To try a language: `FreeBuds\ Kontrol.app/Contents/MacOS/FreeBudsKontrol -AppleLanguages "(de)"`.
+
 ## Publishing
 
 1. Update `VERSION`, `CHANGELOG.md` and `docs/releases/v<VERSION>.md` in a reviewed commit on `main`.

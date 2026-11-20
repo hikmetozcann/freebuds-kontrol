@@ -22,6 +22,17 @@ func protocolChecks() {
     precondition(Feature.latency.accepts(Packet(0x2b6c, [2: [0]])))
     precondition(!Feature.anc.accepts(Packet(0x2b2a, [1: [1]])))
     print("PASS: CRC vector, all fragment boundaries, concatenated frames, resynchronization, malformed TLV, ACK filtering")
+    localizationChecks()
+}
+// Only meaningful inside the app bundle; a bare binary has no .lproj folders and is skipped.
+func localizationChecks() {
+    guard Bundle.main.path(forResource: "Localizable", ofType: "strings", inDirectory: nil, forLocalization: "en") != nil else { return }
+    for (language, off) in [("en", "Off"), ("de", "Aus"), ("tr", "Kapalı")] {
+        guard let path = Bundle.main.path(forResource: language, ofType: "lproj"), let bundle = Bundle(path: path) else { preconditionFailure("Missing \(language).lproj") }
+        precondition(bundle.localizedString(forKey: "Kapalı", value: nil, table: nil) == off, "\(language) translation of Kapalı")
+        precondition(String(format: bundle.localizedString(forKey: "Son okuma %@", value: nil, table: nil), "10:00").contains("10:00"))
+    }
+    print("PASS: en, de and tr localizations load")
 }
 @MainActor func liveSnapshot(_ link: BluetoothLink) async throws -> [Feature: Packet] {
     try await link.open()

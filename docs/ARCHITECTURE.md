@@ -7,7 +7,8 @@ FreeBuds Kontrol is a Swift executable packaged as an AppKit accessory app. Ther
 | `Sources/Protocol.swift` | Framing, CRC16/XMODEM, incremental decoding, command/field definitions |
 | `Sources/Bluetooth.swift` | Paired-device discovery, RFCOMM lifecycle, one outstanding request, deadlines and write/readback verification |
 | `Sources/Model.swift` | Observable device state, polling and serialized user changes |
-| `Sources/Views.swift` | Turkish controls and connection/unknown states |
+| `Sources/Views.swift` | Controls and connection/unknown states (all text via `L()`) |
+| `Sources/Localization.swift` | `L()` helper; keys are the Turkish source strings, translations in `Resources/*.lproj` |
 | `Sources/Surfaces.swift` | Native materials, accessibility preferences, window appearance and reusable controls |
 | `Sources/Artwork.swift` | Original vector earbud illustration |
 | `Sources/main.swift` | Menu bar/window lifecycle and command-line entry points |
