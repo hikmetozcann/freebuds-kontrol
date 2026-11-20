@@ -18,7 +18,7 @@ cp "$FREEBUDS_ROOT/LICENSE" "$FREEBUDS_ROOT/NOTICE.md" "$FREEBUDS_STAGE/"
 cat > "$FREEBUDS_STAGE/INSTALL.txt" <<TXT
 FreeBuds Kontrol $FREEBUDS_VERSION ($FREEBUDS_ARCH)
 Move FreeBuds Kontrol.app to Applications, then open it.
-macOS 14 or later. FreeBuds SE 4 ANC (BTFT0026) only. Interface: Turkish.
+macOS 14 or later. FreeBuds SE 4 ANC (BTFT0026) only. Interface: English, German, Turkish (follows the macOS language).
 This build is ad hoc signed, not Apple-notarized. See the README for first launch.
 Source code for this exact release (GPL-3.0-only):
 https://github.com/hikmetozcann/freebuds-kontrol/tree/v$FREEBUDS_VERSION

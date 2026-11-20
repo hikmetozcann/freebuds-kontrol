@@ -1,0 +1,2 @@
+"NSBluetoothAlwaysUsageDescription" = "FreeBuds Kontrol uses Bluetooth to read your earbuds’ battery and manage their sound and gesture settings.";
+"NSBluetoothPeripheralUsageDescription" = "FreeBuds Kontrol uses Bluetooth to manage your earbuds’ settings.";
