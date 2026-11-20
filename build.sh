@@ -17,6 +17,7 @@ cp "$FREEBUDS_ROOT/Resources/Info.plist" "$FREEBUDS_APP/Contents/Info.plist"
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $FREEBUDS_VERSION" "$FREEBUDS_APP/Contents/Info.plist"
 xcrun swift "$FREEBUDS_ROOT/Tools/make-icon.swift" "$FREEBUDS_DEST/generated/AppIcon.iconset"
 iconutil -c icns "$FREEBUDS_DEST/generated/AppIcon.iconset" -o "$FREEBUDS_APP/Contents/Resources/AppIcon.icns"
+for lproj in "$FREEBUDS_ROOT"/Resources/*.lproj; do cp -R "$lproj" "$FREEBUDS_APP/Contents/Resources/"; done
 cp "$FREEBUDS_ROOT/LICENSE" "$FREEBUDS_ROOT/NOTICE.md" "$FREEBUDS_APP/Contents/Resources/"
 codesign --force --sign - "$FREEBUDS_APP"
 codesign --verify --deep --strict "$FREEBUDS_APP"

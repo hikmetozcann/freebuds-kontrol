@@ -20,7 +20,7 @@ A small, independent macOS menu bar app for **HUAWEI FreeBuds SE 4 ANC**. Read b
   <img src="docs/images/dark.png" width="46%" alt="FreeBuds Kontrol sound panel in dark appearance">
 </p>
 
-*Interface previews rendered from the app's actual views with example values and reduced transparency. The current app interface is Turkish; English and Turkish documentation are available.*
+*Interface previews rendered from the app's actual views with example values and reduced transparency. The previews show the Turkish interface; the app is also available in English and German, and follows the macOS language setting. English and Turkish documentation are available.*
 
 ## What it controls
 
@@ -40,7 +40,7 @@ Changes are read back from the earbuds before the app reports success. Missing r
 | Hardware verification | Firmware **1.9.0.199**, macOS **26.3**, Apple Silicon |
 | Deployment target | macOS **14 or later** |
 | Builds | Apple Silicon (`arm64`) and Intel (`x86_64`); both checked in CI |
-| Interface language | Turkish |
+| Interface language | English, German, Turkish (follows macOS language) |
 
 Other FreeBuds models are not supported. Intel builds and the older macOS material fallback are not equivalent to hardware validation on every Mac. See [validation scope](docs/VALIDATION.md).
 

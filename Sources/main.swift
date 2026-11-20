@@ -12,7 +12,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let menuBar = NSMenu()
         let appMenuItem = NSMenuItem()
         let appMenu = NSMenu()
-        appMenu.addItem(withTitle: "FreeBuds Kontrol’den çık", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q").target = NSApp
+        appMenu.addItem(withTitle: L("FreeBuds Kontrol’den çık"), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q").target = NSApp
         appMenuItem.submenu = appMenu
         menuBar.addItem(appMenuItem)
         NSApp.mainMenu = menuBar
@@ -51,14 +51,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func updateStatus() {
         let levels = [model.leftBattery, model.rightBattery].compactMap { $0 }
         statusItem?.button?.title = model.ready ? levels.min().map { " \($0)%" } ?? "" : ""
-        statusItem?.button?.toolTip = model.ready ? "FreeBuds SE 4 ANC — Mac’e bağlı" : "FreeBuds Kontrol — bağlantı yok"
+        statusItem?.button?.toolTip = model.ready ? L("FreeBuds SE 4 ANC — Mac’e bağlı") : L("FreeBuds Kontrol — bağlantı yok")
     }
     @objc func togglePanel() {
         if NSApp.currentEvent?.type == .rightMouseUp {
             let menu = NSMenu()
-            menu.addItem(withTitle: "FreeBuds’u aç", action: #selector(showPanel), keyEquivalent: "").target = self
+            menu.addItem(withTitle: L("FreeBuds’u aç"), action: #selector(showPanel), keyEquivalent: "").target = self
             menu.addItem(.separator())
-            menu.addItem(withTitle: "Çıkış", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+            menu.addItem(withTitle: L("Çıkış"), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
             statusItem.menu = menu
             statusItem.button?.performClick(nil)
             statusItem.menu = nil

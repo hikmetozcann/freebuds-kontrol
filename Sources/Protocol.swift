@@ -122,7 +122,7 @@ struct Option: Identifiable, Equatable {
     let id: Int
     let title: String
 }
-let tapOptions = [Option(id: 1, title: "Oynat / duraklat"), Option(id: 2, title: "Sonraki parça"), Option(id: 7, title: "Önceki parça"), Option(id: 0, title: "Sesli asistan"), Option(id: 255, title: "İşlem yapma")]
-let holdOptions = [Option(id: 10, title: "Gürültü modunu değiştir"), Option(id: 18, title: "Sesi artır"), Option(id: 19, title: "Sesi azalt"), Option(id: 0, title: "Sesli asistan"), Option(id: 255, title: "İşlem yapma")]
-let cycleOptions = [Option(id: 1, title: "Kapalı ↔ Engelleme"), Option(id: 2, title: "Kapalı / Engelleme / Farkındalık"), Option(id: 3, title: "Engelleme ↔ Farkındalık"), Option(id: 4, title: "Kapalı ↔ Farkındalık")]
-let eqOptions = [Option(id: 1, title: "Varsayılan"), Option(id: 2, title: "Bas"), Option(id: 3, title: "Tiz"), Option(id: 9, title: "Vokaller")]
+let tapOptions = [Option(id: 1, title: L("Oynat / duraklat")), Option(id: 2, title: L("Sonraki parça")), Option(id: 7, title: L("Önceki parça")), Option(id: 0, title: L("Sesli asistan")), Option(id: 255, title: L("İşlem yapma"))]
+let holdOptions = [Option(id: 10, title: L("Gürültü modunu değiştir")), Option(id: 18, title: L("Sesi artır")), Option(id: 19, title: L("Sesi azalt")), Option(id: 0, title: L("Sesli asistan")), Option(id: 255, title: L("İşlem yapma"))]
+let cycleOptions = [Option(id: 1, title: L("Kapalı ↔ Engelleme")), Option(id: 2, title: L("Kapalı / Engelleme / Farkındalık")), Option(id: 3, title: L("Engelleme ↔ Farkındalık")), Option(id: 4, title: L("Kapalı ↔ Farkındalık"))]
+let eqOptions = [Option(id: 1, title: L("Varsayılan")), Option(id: 2, title: L("Bas")), Option(id: 3, title: L("Tiz")), Option(id: 9, title: L("Vokaller"))]
